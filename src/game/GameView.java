@@ -58,19 +58,21 @@ public class GameView extends JFrame {
 	private JTextField player2TextField;
 	
 	//Spinners to allow us to choose different ship types and orientations
-	JSpinner shipTypeSpinner;
-	JSpinner orientationSpinner;
+	private JSpinner shipTypeSpinner;
+	private JSpinner orientationSpinner;
 	
 	//Buttons
 	private JButton setupButton;
+	private JButton startGameButton;
+	private JButton beginButton;
 
 	//Labels used during the setup of the ships
-	JLabel currentPlayerLabel;
-	JLabel carrierShipLabel;
-	JLabel battleshipShipLabel;
-	JLabel destroyerShipLabel;
-	JLabel submarineLabel;
-	JLabel errorLabel;
+	private JLabel currentPlayerLabel;
+	private JLabel carrierShipLabel;
+	private JLabel battleshipShipLabel;
+	private JLabel destroyerShipLabel;
+	private JLabel submarineLabel;
+	private JLabel errorLabel;
 	
 	//Other Labels
 	private JTextField strikeMessageTextField;
@@ -122,12 +124,17 @@ public class GameView extends JFrame {
 		gbc_frmtdtxtfldWelcomeToDigital.gridy = 1;
 		welcomePanel.add(frmtdtxtfldWelcomeToDigital, gbc_frmtdtxtfldWelcomeToDigital);
 		
-		JButton btnNewButton = new JButton("Start Game");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 2;
-		welcomePanel.add(btnNewButton, gbc_btnNewButton);
+		startGameButton = new JButton("Start Game");
+		startGameButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+		});
+		GridBagConstraints gbc_startGameButton = new GridBagConstraints();
+		gbc_startGameButton.insets = new Insets(0, 0, 5, 5);
+		gbc_startGameButton.gridx = 1;
+		gbc_startGameButton.gridy = 2;
+		welcomePanel.add(startGameButton, gbc_startGameButton);
 		JPanel setupPanel = new JPanel();
 		setupPanel.setBackground(Color.BLACK);
 		setupPanel.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
@@ -490,10 +497,6 @@ public class GameView extends JFrame {
 		gbc_errorLabel.gridy = 5;
 		labelsPanel.add(errorLabel, gbc_errorLabel);
 		
-		
-		
-		
-		
 		/**
 		 * All of the code below is for the portion of the game where each player is able to place their ships on the board
 		 */
@@ -516,9 +519,9 @@ public class GameView extends JFrame {
 		strikeHistoryColumn.setAutoscrolls(false);
 		strikeHistoryColumn.setAutoCreateColumnsFromModel(false);
 		GridBagConstraints gbc_strikeHistoryColumn = new GridBagConstraints();
+		gbc_strikeHistoryColumn.anchor = GridBagConstraints.EAST;
 		gbc_strikeHistoryColumn.weightx = 0.015;
 		gbc_strikeHistoryColumn.insets = new Insets(0, 0, 5, 5);
-		gbc_strikeHistoryColumn.fill = GridBagConstraints.HORIZONTAL;
 		gbc_strikeHistoryColumn.gridx = 0;
 		gbc_strikeHistoryColumn.gridy = 0;
 		gameplayPanel.add(strikeHistoryColumn, gbc_strikeHistoryColumn);
@@ -532,7 +535,8 @@ public class GameView extends JFrame {
 		gameplayPanel.add(scrollPane_1, gbc_scrollPane_1);
 		
 		strikeHistoryTable = new JTable(strikeHistoryTableDefault, numberColumnNames);
-		strikeHistoryTable.setForeground(Color.RED);
+		strikeHistoryTable.setVisible(false);
+		strikeHistoryTable.setForeground(Color.BLACK);
 		strikeHistoryTable.setSelectionBackground(Color.RED);
 		strikeHistoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPane_1.setViewportView(strikeHistoryTable);
@@ -558,9 +562,25 @@ public class GameView extends JFrame {
 		strikeHistoryTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		strikeHistoryTable.setGridColor(Color.RED);
 		
+		beginButton = new JButton("Begin Game");
+		beginButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				strikeHistoryTable.setVisible(true);
+				shipLocationTable.setVisible(true);
+				beginButton.setEnabled(false);
+			}
+		});
+		GridBagConstraints gbc_beginButton = new GridBagConstraints();
+		gbc_beginButton.insets = new Insets(0, 0, 5, 5);
+		gbc_beginButton.gridx = 0;
+		gbc_beginButton.gridy = 1;
+		gameplayPanel.add(beginButton, gbc_beginButton);
+		
 		strikeMessageTextField = new JTextField();
+		strikeMessageTextField.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		strikeMessageTextField.setHorizontalAlignment(SwingConstants.CENTER);
-		strikeMessageTextField.setText("Please click on one of the squares above to launch an attack against your opponent!");
+		strikeMessageTextField.setText("Click the button to get started!");
 		strikeMessageTextField.setEditable(false);
 		GridBagConstraints gbc_strikeMessageTextField = new GridBagConstraints();
 		gbc_strikeMessageTextField.insets = new Insets(0, 0, 5, 5);
@@ -579,9 +599,9 @@ public class GameView extends JFrame {
 		shipLocationColumn.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		shipLocationColumn.setAutoCreateColumnsFromModel(false);
 		GridBagConstraints gbc_shipLocationColumn = new GridBagConstraints();
+		gbc_shipLocationColumn.anchor = GridBagConstraints.EAST;
 		gbc_shipLocationColumn.weightx = 0.015;
 		gbc_shipLocationColumn.insets = new Insets(0, 0, 0, 5);
-		gbc_shipLocationColumn.fill = GridBagConstraints.HORIZONTAL;
 		gbc_shipLocationColumn.gridx = 0;
 		gbc_shipLocationColumn.gridy = 2;
 		gameplayPanel.add(shipLocationColumn, gbc_shipLocationColumn);
@@ -595,14 +615,15 @@ public class GameView extends JFrame {
 		gameplayPanel.add(scrollPane_2, gbc_scrollPane_2);
 		
 		shipLocationTable = new JTable(shipLocationTableDefault, numberColumnNames);
-		shipLocationTable.setForeground(Color.WHITE);
+		shipLocationTable.setVisible(false);
+		shipLocationTable.setCellSelectionEnabled(true);
+		shipLocationTable.setForeground(Color.BLACK);
 		shipLocationTable.setSelectionBackground(Color.WHITE);
 		shipLocationTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		scrollPane_2.setViewportView(shipLocationTable);
 		shipLocationTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		shipLocationTable.setRowHeight(25);
 		shipLocationTable.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		shipLocationTable.setAutoCreateColumnsFromModel(false);
 		shipLocationTable.setAutoscrolls(false);
 		shipLocationTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		shipLocationTable.setRowSelectionAllowed(false);
@@ -652,6 +673,10 @@ public class GameView extends JFrame {
 		//Button to setup the game
 		setupButton.setActionCommand("SETUP");
 		setupButton.addActionListener(listener);
+		startGameButton.setActionCommand("START");
+		startGameButton.addActionListener(listener);
+		beginButton.setActionCommand("BEGIN");
+		beginButton.addActionListener(listener);
 	}
 	
 	/**
@@ -660,13 +685,12 @@ public class GameView extends JFrame {
 	 * @param listener - The object you want to listen to your event
 	 */
 	public void setMouseListener(MouseListener listener) {
-		//This table holds the active ships
-		shipLocationTable.addMouseListener(listener);
-		shipLocationTable.setName("Game Table");
-		
 		//This table allows you to place ships on the board
 		shipPlacementTable.addMouseListener(listener);
 		shipPlacementTable.setName("Placement Table");
+		//Add listener
+		strikeHistoryTable.addMouseListener(listener);
+		strikeHistoryTable.setName("Game Table");
 	}
 	
 	/**
@@ -713,7 +737,7 @@ public class GameView extends JFrame {
 					table.setValueAt("S", m, n);
 				}else if(shipPlacement[m][n] == 2) {
 					//Opponents Misses
-					table.setValueAt("X", m, n);
+					table.setValueAt("O", m, n);
 				}else if(shipPlacement[m][n] == 3) {
 					//Opponents HITS
 					table.setValueAt("X", m, n);
@@ -773,13 +797,12 @@ public class GameView extends JFrame {
 	 * @Param message - This is a message to inform the user of a successful or unsuccessful Ship Placement
 	 * @return - A boolean indicating false until we get a null player which then returns TRUE
 	 */
-	public boolean placeShips(Player player, int[][] shipPlacements, String message) {
+	public void placeShips(Player player, int[][] shipPlacements, String message) {
 		
 		//This means both players have placed all of their ships so advance to the next stage of the game
 		if(player == null) {
 			//Advanced to the next card
-			this.advanceCard();
-			return true;
+			return;
 		}else {
 			//Update the game window to reflect the current players information
 			this.currentPlayerLabel.setText(player.getName() + " has to place more ships!");
@@ -803,7 +826,7 @@ public class GameView extends JFrame {
 				}
 			}
 		}
-		return false;
+		return;
 		
 	}
 	

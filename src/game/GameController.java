@@ -120,6 +120,12 @@ public class GameController implements ActionListener, MouseListener{
 				//Now we advance to the next card
 				this.gameView.advanceCard();
 				break;
+			case "BEGIN":
+				Player player = this.gameModel.getPlayerToMove();
+				this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), "Click one of the squares empty squares above to launch an attack!");
+				this.gameView.refreshShipBoard(player, player.getLocationBoard().getBoardValues());
+				break;
+				
 		}
 	}
 
@@ -140,22 +146,23 @@ public class GameController implements ActionListener, MouseListener{
 			player = this.gameModel.getPlayerToPlaceShips();
 			if(player == null) {
 				//Update the view after an attempted ship placement
-				this.gameView.placeShips(player, null, "...");
+				this.gameView.advanceCard();
+				return;
 			}else {
 				//The player clicked on a square so we need to react accordingly
 				String returnValue = this.gameModel.attemptShipPlacement(player, this.gameView.getShipType(), this.gameView.getOrientation(), this.gameView.getStrikeCoordinates());
 				
 				//Update the view after an attempted ship placement
-				boolean startGameCycle = this.gameView.placeShips(player, player.getLocationBoard().getBoardValues(), returnValue);
-				
-				//IF we get a null value it means the window changed so reflect our new board for Player1. They will always go first
-				if(startGameCycle == true) {
-					player = this.gameModel.getPlayerToMove();
-					this.gameView.refreshStrikeBoard(player,player.getStrikeBoard().getBoardValues(), "Click one of the squares empty squares above to launch an attack!");
-					this.gameView.refreshShipBoard(player, player.getLocationBoard().getBoardValues());
-				}
+				this.gameView.placeShips(player, player.getLocationBoard().getBoardValues(), returnValue);
+				return;
 			}
-		}else {
+		}
+		
+		if(table.getName().equals("Game Table")){
+			player = this.gameModel.getPlayerToMove();
+			this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), "Click one of the squares empty squares above to launch an attack!");
+			this.gameView.refreshShipBoard(player, player.getLocationBoard().getBoardValues());
+			/*
 			//The player click on a cell so we now need to handle that information
 			player = this.gameModel.handleMove(this.gameView.getStrikeCoordinates());
 			
@@ -181,8 +188,7 @@ public class GameController implements ActionListener, MouseListener{
 				this.gameView.refreshStrikeBoard(player, player.getLocationBoard().getBoardValues(), "Click one of the squares empty squares above to launch an attack!");
 				this.gameView.refreshShipBoard(player, player.getStrikeBoard().getBoardValues());
 			}
-			
-		
+			*/
 		}
 	}
 	
