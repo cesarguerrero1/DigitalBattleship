@@ -5,6 +5,11 @@
  */
 package game;
 
+/**
+ * The Strike board is the board that holds attacks you have made against your opponent
+ * @author enginestaff
+ *
+ */
 public class StrikeBoard extends Board{
 
 	public void updateBoard(int[] strikeCoords, String typeOfHit) {

@@ -286,15 +286,6 @@ public class GameView extends JFrame {
 		/**
 		 * All of the code below is for the portion of the game where each player is able to place their ships on the board
 		 */
-		JPanel shipPlacementPanel = new JPanel();
-		shipPlacementPanel.setBackground(Color.WHITE);
-		getContentPane().add(shipPlacementPanel, "name_145361543912693");
-		GridBagLayout gbl_shipPlacementPanel = new GridBagLayout();
-		gbl_shipPlacementPanel.columnWidths = new int[]{0, 0};
-		gbl_shipPlacementPanel.rowHeights = new int[]{463, 0, 0, 0};
-		gbl_shipPlacementPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_shipPlacementPanel.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
-		shipPlacementPanel.setLayout(gbl_shipPlacementPanel);
 		
 		//Create a default for the table to use
 		String[][] strikeHistoryTableDefault = {
@@ -369,6 +360,27 @@ public class GameView extends JFrame {
 		String[] letterColumnNames = {" "};
 		String[][] letterTable = {{new String("A")}, {new String("B")}, {new String("C")}, {new String("D")}, {new String("E")}, {new String("F")}, {new String("G")}, {new String("H")}, {new String("I")}, {new String("J")}};
 		
+		//Creating the preset values for our Spinner
+		String[] orientations = {"North", "East", "South", "West"};
+		SpinnerListModel orientationModel = new SpinnerListModel(orientations);
+		
+		//Creating the preset values for our Spinner
+		String[] shipTypeOptions = {"Carrier", "Battleship", "Destroyer", "Submarine"};
+		SpinnerListModel shipTypeModel = new SpinnerListModel(shipTypeOptions);
+		
+		/**
+		 * All of the code below is for the portion of the game where each player is able to place their ships on the board
+		 */
+		JPanel shipPlacementPanel = new JPanel();
+		shipPlacementPanel.setBackground(Color.WHITE);
+		getContentPane().add(shipPlacementPanel, "name_145361543912693");
+		GridBagLayout gbl_shipPlacementPanel = new GridBagLayout();
+		gbl_shipPlacementPanel.columnWidths = new int[]{0, 0};
+		gbl_shipPlacementPanel.rowHeights = new int[]{463, 0, 0, 0};
+		gbl_shipPlacementPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_shipPlacementPanel.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		shipPlacementPanel.setLayout(gbl_shipPlacementPanel);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -429,10 +441,6 @@ public class GameView extends JFrame {
 		gbc_shipOrientationLabel.gridx = 0;
 		gbc_shipOrientationLabel.gridy = 0;
 		placementOptionsPanel.add(shipOrientationLabel, gbc_shipOrientationLabel);
-		
-		//Creating the preset values for our Spinner
-		String[] orientations = {"North", "East", "South", "West"};
-		SpinnerListModel orientationModel = new SpinnerListModel(orientations);
 		orientationSpinner = new JSpinner(orientationModel);
 		GridBagConstraints gbc_orientationSpinner = new GridBagConstraints();
 		gbc_orientationSpinner.fill = GridBagConstraints.BOTH;
@@ -448,10 +456,6 @@ public class GameView extends JFrame {
 		gbc_shipTypeLabel.gridx = 2;
 		gbc_shipTypeLabel.gridy = 0;
 		placementOptionsPanel.add(shipTypeLabel, gbc_shipTypeLabel);
-		
-		//Creating the preset values for our Spinner
-		String[] shipType = {"Carrier", "Battleship", "Destroyer", "Submarine"};
-		SpinnerListModel shipTypeModel = new SpinnerListModel(shipType);
 		shipTypeSpinner = new JSpinner(shipTypeModel);
 		GridBagConstraints gbc_shipTypeSpinner = new GridBagConstraints();
 		gbc_shipTypeSpinner.fill = GridBagConstraints.BOTH;
@@ -513,10 +517,6 @@ public class GameView extends JFrame {
 		gbc_errorLabel.gridx = 0;
 		gbc_errorLabel.gridy = 5;
 		labelsPanel.add(errorLabel, gbc_errorLabel);
-		
-		/**
-		 * All of the code below is for the portion of the game where each player is able to place their ships on the board
-		 */
 		JPanel gameplayPanel = new JPanel();
 		gameplayPanel.setBackground(Color.WHITE);
 		getContentPane().add(gameplayPanel, "name_128954067863682");

@@ -28,6 +28,20 @@ public class TurnNode implements NodeInterface{
 			this.strikeLocation = strikeLocation;
 		}
 		
+		//Getters
+		public String getName() {
+			return this.playerName;
+		}
+		
+		public String getAttackOutcome(){
+			return this.attackOutcome;
+		}
+		
+		public int[] getStrikeLocation() {
+			return this.strikeLocation;
+		}
+	
+		
 		public NodeInterface addToBack(NodeInterface node) {
 			this.nextNode = this.nextNode.addToBack(node);
 			return this;

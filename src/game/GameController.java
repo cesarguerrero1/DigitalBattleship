@@ -37,6 +37,9 @@ public class GameController implements ActionListener, MouseListener{
 	 * Start the game flow
 	 */
 	public void run() {
+		//Once you run this method to begin the game it would be nonsensical to allow
+		//the program to run this again so we use the state to block access to the
+		//actual functionality of the method
 		if(this.gameState != GameState.preGame) {
 			return;
 		}
@@ -57,6 +60,8 @@ public class GameController implements ActionListener, MouseListener{
 	 * This method allows us to display the winner and their stats
 	 */
 	private void gameOver() {
+		//Yu cannot prematareutly end the game. Conditions must be met for the game
+		//state to change and allow for this method to truly run
 		if(this.gameState != GameState.endGame) {
 			return;
 		}

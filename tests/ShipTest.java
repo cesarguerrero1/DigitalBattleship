@@ -3,11 +3,13 @@
  * CS5004 - Spring 2022
  * 05/01/22
  */
-package game;
+
 
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import game.Ship;
 
 /**
  * Testing the Ship Class

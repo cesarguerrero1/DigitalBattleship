@@ -36,9 +36,9 @@ public class BattleshipBoard extends Board{
 	public BattleshipBoard() {
 		
 		this.carrierLimit = 1;
-		this.battleshipLimit = 0;
-		this.destroyerLimit = 0;
-		this.submarineLimit = 0;
+		this.battleshipLimit = 1;
+		this.destroyerLimit = 1;
+		this.submarineLimit = 1;
 		this.totalShipLimit = this.carrierLimit + this.battleshipLimit + this.destroyerLimit + this.submarineLimit;
 		
 		this.carrierCount = 0;

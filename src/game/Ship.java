@@ -21,7 +21,6 @@ public class Ship {
 	private HashMap<Integer, Boolean> shipParts;
 	private int[][] shipPartLocations;
 	
-	
 	/**
 	 * Constructor for our ship
 	 * @param shipSize - How big is the ship
@@ -34,7 +33,7 @@ public class Ship {
 		this.shipParts = new HashMap<Integer, Boolean>();
 		this.shipPartLocations = new int[shipSize][2];
 		
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < shipSize; i++) {
 			//Each subarray only contains two items
 			shipParts.put(i, true);
 			this.shipPartLocations[i][0] = positionCoords[i][0];
