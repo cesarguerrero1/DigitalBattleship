@@ -20,6 +20,7 @@ public class GameController implements ActionListener, MouseListener{
 	
 	private GameView gameView;
 	private GameModel gameModel;
+	private GameState gameState; 
 
 	/**
 	 * Constructor for our class
@@ -29,12 +30,17 @@ public class GameController implements ActionListener, MouseListener{
 	public GameController(GameModel gameModel, GameView gameView) {
 		this.gameView = gameView;
 		this.gameModel = gameModel;
+		this.gameState = GameState.preGame;
 	}
 	
 	/**
 	 * Start the game flow
 	 */
 	public void run() {
+		if(this.gameState != GameState.preGame) {
+			return;
+		}
+		
 		//Display the created JFrame
 		this.gameView.createGUI();
 		
@@ -42,12 +48,18 @@ public class GameController implements ActionListener, MouseListener{
 		this.gameView.setMouseListener(this);
 		this.gameView.setActionListener(this);
 		
+		//Change the GameState
+		this.gameState = GameState.midGame;
+		
 	}
 	
 	/**
 	 * This method allows us to display the winner and their stats
 	 */
 	private void gameOver() {
+		if(this.gameState != GameState.endGame) {
+			return;
+		}
 		this.gameView.advanceCard();
 		this.gameView.updateGameOverScreen(this.gameModel.getWinner(), this.gameModel.getGameHistory());
 	}
@@ -128,6 +140,8 @@ public class GameController implements ActionListener, MouseListener{
 			
 			//Check if the game is over before we continue
 			if(this.gameModel.isGameOver() == true) {
+				//You have to change the GameState or this won't run
+				this.gameState = GameState.endGame;
 				this.gameOver();
 				return;
 			}
@@ -135,35 +149,6 @@ public class GameController implements ActionListener, MouseListener{
 			player = this.gameModel.getPlayerToMove();
 			this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), player.getName() + ", click one of the squares empty squares above to launch an attack!");
 			this.gameView.refreshShipBoard(player, player.getLocationBoard().getBoardValues());
-			
-
-			/*
-			//The player click on a cell so we now need to handle that information
-			player = this.gameModel.handleMove(this.gameView.getStrikeCoordinates());
-			
-			//If the two playersa are the same then we know it was an invalid strike
-			if(player.equals(this.gameModel.getPlayerToMove())){
-				//Now update the GUI
-				this.gameView.refreshStrikeBoard(player, player.getLocationBoard().getBoardValues(), "You made an invalid strike! Try again!");
-				this.gameView.refreshShipBoard(player, player.getStrikeBoard().getBoardValues());
-				
-			}else {
-				//Now update the GUI
-				this.gameView.refreshStrikeBoard(player, player.getLocationBoard().getBoardValues(), "You made an valid strike! It is the next players turn in 10 seconds");
-				this.gameView.refreshShipBoard(player, player.getStrikeBoard().getBoardValues());
-				
-				//Timeout the program for a bit so that the player can assess then change to the next player
-				try {
-					Thread.sleep(10000);
-				} catch (InterruptedException e1) {
-					//If this catches then something went very wrong
-					e1.printStackTrace();
-				}
-				
-				this.gameView.refreshStrikeBoard(player, player.getLocationBoard().getBoardValues(), "Click one of the squares empty squares above to launch an attack!");
-				this.gameView.refreshShipBoard(player, player.getStrikeBoard().getBoardValues());
-			}
-			*/
 		}
 	}
 	
