@@ -45,46 +45,11 @@ public class GameController implements ActionListener, MouseListener{
 	}
 	
 	/**
-	 * This is the main game loop. So long as a player has ships the game will
-	 * keep running
-	 */
-	/*
-	private void gameCycle() {
-		/*
-		 * //Display game information
-		this.ticTacToeView.displayGameInformation(this.ticTacToeModel.getTurn(), this.ticTacToeModel.getTurnNumber());
-		
-		//Display the current board
-		this.ticTacToeView.displayBoard(this.ticTacToeModel.getBoard());
-		
-		//Allow the player to move
-		this.ticTacToeView.getPlayerInput();
-		
-		//We know that the player make an illegal move so we need to catch it and then just replay the loop
-		try {
-			this.ticTacToeModel.move(this.ticTacToeView.getRow(), this.ticTacToeView.getColumn());
-			
-			//Check if the game is over!
-			if(this.ticTacToeModel.isGameOver() == true) {
-				this.ticTacToeView.displayGameOver(this.ticTacToeModel.getWinner());
-				System.exit(0);
-			}else {
-				this.gameLoop();
-			}
-			
-		}catch(Exception error) {
-			System.out.println(error);
-			this.gameLoop();
-		}
-		 */
-	//}
-	
-	
-	/**
 	 * This method allows us to display the winner and their stats
 	 */
 	private void gameOver() {
 		this.gameView.advanceCard();
+		this.gameView.updateGameOverScreen(this.gameModel.getWinner(), this.gameModel.getGameHistory());
 	}
 
 	/**
@@ -158,7 +123,7 @@ public class GameController implements ActionListener, MouseListener{
 		
 		if(table.getName().equals("Game Table")){
 			player = this.gameModel.handleMove(this.gameView.getStrikeCoordinates());
-			this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), player.getName() + " click one of the squares empty squares above to launch an attack!");
+			this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), player.getName() + ", click one of the squares empty squares above to launch an attack!");
 			this.gameView.refreshShipBoard(player, player.getLocationBoard().getBoardValues());
 			
 			//Check if the game is over before we continue
@@ -168,7 +133,7 @@ public class GameController implements ActionListener, MouseListener{
 			}
 			
 			player = this.gameModel.getPlayerToMove();
-			this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), player.getName() + " click one of the squares empty squares above to launch an attack!");
+			this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), player.getName() + ", click one of the squares empty squares above to launch an attack!");
 			this.gameView.refreshShipBoard(player, player.getLocationBoard().getBoardValues());
 			
 

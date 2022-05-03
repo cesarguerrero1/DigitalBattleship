@@ -6,6 +6,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * This class holds the arrays that we will use to populate our GUI
@@ -130,11 +131,17 @@ public class BattleshipBoard extends Board{
 	}
 	
 	/**
-	 * 
+	 * We are using an iterator here just to demonstrate the use of the iterable/iterator concept
+	 * Iterables have access to an iterator and as you can see, the ArrayList<> implements the iterable interface
 	 */
 	public int getFloatingShips() {
+		
 		int count = 0;
-		for(Ship ship: this.ships) {
+		
+		Iterator<Ship> iterator = this.ships.iterator();
+		
+		while(iterator.hasNext()) {
+			Ship ship = iterator.next();
 			if(ship.isFloating() == true) {
 				count++;
 			}

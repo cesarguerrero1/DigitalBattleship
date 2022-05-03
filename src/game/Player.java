@@ -52,7 +52,7 @@ public class Player {
 	 * We need to verify with ourselves and our opponent whether our strike was valid or not
 	 * @return - An integer represeting the type of hit that occurred
 	 */
-	public int attack(int[] strike, Player opponent) {
+	public int attack(int[] strike, Player opponent, GameHistory gameHistory) {
 		//Check your own array before anything else
 		if(this.strikeHistoryBoard.getBoardValues()[strike[1]][strike[0]] != 0){
 			//We hit something that we have alreayd hit before
@@ -61,10 +61,14 @@ public class Player {
 			//Check with your opponent to see if you hit a ship
 			if(opponent.shipLocationBoard.getBoardValues()[strike[1]][strike[0]] == 1) {
 				//We hit a ship!
+				
 				//Update our boards
 				this.strikeHistoryBoard.updateBoard(strike, "HIT");
 				//Update their boards
 				opponent.shipLocationBoard.updateBoard(strike, "HIT");
+				//Add to our linked list of historical nodes
+				gameHistory.addToBack(this.name, "HIT", strike);
+				
 				return 1;
 			}else {
 				//We missed!
@@ -72,6 +76,9 @@ public class Player {
 				this.strikeHistoryBoard.updateBoard(strike, "MISS");
 				//Update their boards
 				opponent.shipLocationBoard.updateBoard(strike, "MISS");
+				
+				//Add to our linked list of historical nodes
+				gameHistory.addToBack(this.name, "MISS", strike);
 				return 2;
 			}
 		}

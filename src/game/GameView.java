@@ -33,6 +33,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 /**
  * Game View is part of the MVC Design. It will create the GUI which will not only inform the Controller of 
@@ -76,6 +77,10 @@ public class GameView extends JFrame {
 	
 	//Other Labels
 	private JTextField strikeMessageTextField;
+	private JLabel winnerLabel;
+	private JLabel totalAttacksLabel;
+	private JLabel totalHitsLabel;
+	private JLabel totalMissesLabel;
 	
 	//The names of the two created Player Objects
 	private String player1Name;
@@ -155,27 +160,40 @@ public class GameView extends JFrame {
 		gbc_instructionsPanel.gridy = 0;
 		setupPanel.add(instructionsPanel, gbc_instructionsPanel);
 		GridBagLayout gbl_instructionsPanel = new GridBagLayout();
-		gbl_instructionsPanel.columnWidths = new int[]{19, 375, -128, 0};
+		gbl_instructionsPanel.columnWidths = new int[]{359, 625, 375, -68, 0};
 		gbl_instructionsPanel.rowHeights = new int[]{0, 0};
-		gbl_instructionsPanel.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_instructionsPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_instructionsPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		instructionsPanel.setLayout(gbl_instructionsPanel);
 		
+		JPanel panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_1.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_1.gridx = 1;
+		gbc_panel_1.gridy = 0;
+		instructionsPanel.add(panel_1, gbc_panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{439, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0};
+		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
 		JTextArea informationTextArea = new JTextArea();
 		informationTextArea.setText("Battleship is a strategy type guessing game for two players. Each player has two boards. One board contains  the locations of the player's the fleet of ships and the other is used to keep track of strikes you have made against your opponent.\n\nThe objective of the game is to simply destroy the opposing player's fleet before they destroy yours. Players will alternate turns calling \"shots\" at the other player's ships, and after each attack, the boards of each player are updated to reflect the events of that turn. \n\nBefore play begins, each player secretly arranges their ships. Each ship occupies a number of consecutive squares on the grid, arranged either horizontally or vertically. The number of squares for each ship is outlined below. Note that the ships cannot overlap (i.e., only one ship can occupy any given square in the grid) and must be confined to the available space on your board. The types and numbers of ships allowed are the same for each player.\n\nIn this game you will have 4 ships:\n(1) Carrier - Occupies 5 Spaces\n(1) Battleship - Occupies 4 Spaces\n(1) Destroyer - Occupies 4 Spaces\n(1) Submarine - Occupies 3 Spaces\n\nGood luck and have fun! ");
-		informationTextArea.setBackground(Color.BLACK);
+		informationTextArea.setLineWrap(true);
 		informationTextArea.setForeground(Color.WHITE);
 		informationTextArea.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		informationTextArea.setBorder(null);
-		informationTextArea.setLineWrap(true);
 		informationTextArea.setEditable(false);
+		informationTextArea.setBorder(null);
+		informationTextArea.setBackground(Color.BLACK);
 		informationTextArea.setAutoscrolls(false);
 		GridBagConstraints gbc_informationTextArea = new GridBagConstraints();
 		gbc_informationTextArea.fill = GridBagConstraints.BOTH;
-		gbc_informationTextArea.insets = new Insets(0, 0, 0, 5);
-		gbc_informationTextArea.gridx = 1;
+		gbc_informationTextArea.gridx = 0;
 		gbc_informationTextArea.gridy = 0;
-		instructionsPanel.add(informationTextArea, gbc_informationTextArea);
+		panel_1.add(informationTextArea, gbc_informationTextArea);
 		
 		JPanel informationPanel = new JPanel();
 		informationPanel.setBackground(Color.BLACK);
@@ -187,7 +205,7 @@ public class GameView extends JFrame {
 		gbc_informationPanel.gridy = 1;
 		setupPanel.add(informationPanel, gbc_informationPanel);
 		GridBagLayout gbl_informationPanel = new GridBagLayout();
-		gbl_informationPanel.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_informationPanel.columnWidths = new int[]{0, 170, 161, 0, 0};
 		gbl_informationPanel.rowHeights = new int[]{0, 0, 0};
 		gbl_informationPanel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_informationPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
@@ -634,25 +652,57 @@ public class GameView extends JFrame {
 		getContentPane().add(gameOverPanel, "name_202757045339875");
 		GridBagLayout gbl_gameOverPanel = new GridBagLayout();
 		gbl_gameOverPanel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_gameOverPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_gameOverPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_gameOverPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_gameOverPanel.rowWeights = new double[]{1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_gameOverPanel.rowWeights = new double[]{0.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gameOverPanel.setLayout(gbl_gameOverPanel);
 		
-		JTextArea txtrGameOver = new JTextArea();
-		txtrGameOver.setTabSize(9);
-		txtrGameOver.setText("Game Over!");
-		txtrGameOver.setWrapStyleWord(true);
-		txtrGameOver.setLineWrap(true);
-		txtrGameOver.setForeground(Color.WHITE);
-		txtrGameOver.setEditable(false);
-		txtrGameOver.setBackground(Color.BLACK);
-		GridBagConstraints gbc_txtrGameOver = new GridBagConstraints();
-		gbc_txtrGameOver.insets = new Insets(0, 0, 5, 5);
-		gbc_txtrGameOver.fill = GridBagConstraints.BOTH;
-		gbc_txtrGameOver.gridx = 1;
-		gbc_txtrGameOver.gridy = 1;
-		gameOverPanel.add(txtrGameOver, gbc_txtrGameOver);
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLACK);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 1;
+		gameOverPanel.add(panel, gbc_panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{23, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{79, 98, 83, 97, 0};
+		gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		winnerLabel = new JLabel("...");
+		winnerLabel.setForeground(Color.WHITE);
+		GridBagConstraints gbc_winnerLabel = new GridBagConstraints();
+		gbc_winnerLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_winnerLabel.gridx = 1;
+		gbc_winnerLabel.gridy = 0;
+		panel.add(winnerLabel, gbc_winnerLabel);
+		
+		totalAttacksLabel = new JLabel("...");
+		totalAttacksLabel.setForeground(Color.WHITE);
+		GridBagConstraints gbc_totalAttacksLabel = new GridBagConstraints();
+		gbc_totalAttacksLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_totalAttacksLabel.gridx = 1;
+		gbc_totalAttacksLabel.gridy = 1;
+		panel.add(totalAttacksLabel, gbc_totalAttacksLabel);
+		
+		totalHitsLabel = new JLabel("...");
+		totalHitsLabel.setForeground(Color.WHITE);
+		GridBagConstraints gbc_totalHitsLabel = new GridBagConstraints();
+		gbc_totalHitsLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_totalHitsLabel.gridx = 1;
+		gbc_totalHitsLabel.gridy = 2;
+		panel.add(totalHitsLabel, gbc_totalHitsLabel);
+		
+		totalMissesLabel = new JLabel("...");
+		totalMissesLabel.setForeground(Color.WHITE);
+		GridBagConstraints gbc_totalMissesLabel = new GridBagConstraints();
+		gbc_totalMissesLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_totalMissesLabel.gridx = 1;
+		gbc_totalMissesLabel.gridy = 3;
+		panel.add(totalMissesLabel, gbc_totalMissesLabel);
 	}
 	
 	/**
@@ -660,7 +710,7 @@ public class GameView extends JFrame {
 	 */
 	public void createGUI() {
 		this.setTitle("Digital Battleship");
-		this.setSize(800, 750);
+		this.setSize(800, 700);
 		this.setVisible(true);
 	}
 	
@@ -772,6 +822,17 @@ public class GameView extends JFrame {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 */
+	public void updateGameOverScreen(Player winner, GameHistory gameHistory) {
+		winnerLabel.setText("The winner of the game is: " + winner.getName());
+		totalAttacksLabel.setText("Over the course of the game there were " + gameHistory.getNumberOfAttacks()+ " succesful attacks");
+		totalHitsLabel.setText("Of the succesful attacks, " + gameHistory.getNumberOfHits() + " of them were hits");
+		totalMissesLabel.setText("Of the succesful attacks, " + gameHistory.getNumberOfMisses() + " of them were missses");
+	}
+	
 	/**
 	 * Get the orientation of the ship during placement
 	 * @return - A string representing the orientation (North, East, South, West);
@@ -828,5 +889,6 @@ public class GameView extends JFrame {
 		return;
 		
 	}
+
 	
 }

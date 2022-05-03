@@ -15,6 +15,7 @@ public class GameModel {
 	private Player player1;
 	private Player player2;
 	private Player playerToMove;
+	private GameHistory gameHistory;
 	
 	/**
 	 * Constructor for our Game Model Class
@@ -25,6 +26,7 @@ public class GameModel {
 		this.player1 = null;
 		this.player2 = null;
 		this.playerToMove = null;
+		this.gameHistory = new GameHistory();
 	}
 	
 	/**
@@ -82,6 +84,14 @@ public class GameModel {
 	}
 	
 	/**
+	 * Return the Linked List containing nodes of each player's attacking phase
+	 * @return - The Linked List Implementation
+	 */
+	public GameHistory getGameHistory() {
+		return this.gameHistory;
+	}
+	
+	/**
 	 * Given coordinates and other information, have the given player attempt to put a ship down
 	 * @param player - The player whose board we want access to
 	 * @param shipType - The type of ship being placed
@@ -108,8 +118,9 @@ public class GameModel {
 		//We need to hold the player who called this method as we will possibly be switching at the end
 		Player currentPlayer = this.getPlayerToMove();
 		int result;
+		
 		if(currentPlayer == player1) {
-			result = this.player1.attack(strikeCoordinates, this.player2);
+			result = this.player1.attack(strikeCoordinates, this.player2, this.gameHistory);
 			if(result == 0) {
 				//Dont change to the next player!
 				return currentPlayer;
@@ -120,7 +131,7 @@ public class GameModel {
 				this.player2.getLocationBoard().checkShips(strikeCoordinates);
 			}
 		}else{
-			result = this.player2.attack(strikeCoordinates, this.player1);
+			result = this.player2.attack(strikeCoordinates, this.player1, this.gameHistory);
 			if(result == 0) {
 				//Dont change to the next player!
 				return currentPlayer;
@@ -134,51 +145,8 @@ public class GameModel {
 	
 		//Check on whether the game is over
 		this.gameOver = this.checkGameOver();
-		
 		return currentPlayer;
 		
-		//
-		/*
-		 * //Check if the game is over
-		if(this.gameOver == true) {
-			throw new IllegalStateException("The game is over!");
-		}
-		
-		//Check if the move is even valid for the row and the column
-		if(row < 0 || row > this.rowSize) {
-			throw new IllegalArgumentException("The position is invalid! You can only use 0, 1, and 2 for the row");
-		}
-		
-		if(column < 0 || column > this.columnSize) {
-			throw new IllegalArgumentException("The position is invalid! You can only use 0, 1, and 2 for the column");
-		}
-		
-		//Now check if the space is occupied
-		Player boardValue = this.gameBoard[row][column];
-		if(boardValue != null) {
-			throw new IllegalArgumentException("The position is full");
-		}
-		
-		//The space isn't full, the game isn't over, and we have valid coordinates so make
-		//a move and update everything accordingly
-		this.gameBoard[row][column] = this.playerToMove;
-		
-		//Check if the game should be over!
-		//NOTE: I put this here becuase if you forget to call '.isGameOver()' after a manual
-		//call then the game can technically keep going and it shouldnt!
-		this.gameOver = this.isGameOver();
-		
-		if(this.gameOver == true) {
-			return;
-		}else {
-			//Handle the rest
-			this.turnNumber++;
-			
-
-		}
-		
-	}
-		 */
 	}
 	
 	/**
