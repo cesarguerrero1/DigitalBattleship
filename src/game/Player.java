@@ -11,7 +11,6 @@ package game;
 public class Player {
 
 	private String name;
-	private int activeShips;
 	private StrikeBoard strikeHistoryBoard;
 	private BattleshipBoard shipLocationBoard;
 	
@@ -31,46 +30,6 @@ public class Player {
 	 */
 	public String getName() {
 		return this.name;
-	}
-	
-	/**
-	 * Return the number of active ships for the player
-	 * @return - Number of active ships
-	 */
-	public int getNumActiveShips() {
-		return this.shipLocationBoard.getShipCount();
-	}
-	
-	/**
-	 * Query your board to get the count of active Carriers
-	 * @return - Number of active Carrier Ships
-	 */
-	public int getCarrierCount() {
-		return this.shipLocationBoard.getCarrierCount();
-	}
-	
-	/**
-	 * Query your board to get the count of active Battleships
-	 * @return - Number of active Battleship Ships
-	 */
-	public int getBattleshipCount() {
-		return this.shipLocationBoard.getBattleshipCount();
-	}
-	
-	/**
-	 * Query your board to get the count of active Destroyers
-	 * @return - Number of active Destroyer Ships
-	 */
-	public int getDestroyerCount() {
-		return this.shipLocationBoard.getDestroyerCount();
-	}
-	
-	/**
-	 * Query your board to get the count of active Submarines
-	 * @return - Number of active submarines
-	 */
-	public int getSubmarineCount() {
-		return this.shipLocationBoard.getSubmarineCount();
 	}
 	
 	/**

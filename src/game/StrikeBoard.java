@@ -1,3 +1,8 @@
+/*
+ * Cesar Guerrero
+ * CS5004 - Spring 2022
+ * 05/01/22
+ */
 package game;
 
 public class StrikeBoard extends Board{

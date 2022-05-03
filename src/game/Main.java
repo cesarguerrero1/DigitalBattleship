@@ -11,7 +11,9 @@ package game;
 public class Main {
 
 	/**
-	 * Our entry point into the entire program
+	 * Our entry point into the entire program. Notice that this is where our MVC Architecture takes over. The Controller holds both an instance of 
+	 * the GameView and the GameModel so that when interaction occurs with the Vew then the controller can tell the Model and the Model can respond and
+	 * give information to the Controller to then give to the View
 	 */
 	public static void main(String[] args) {
 		

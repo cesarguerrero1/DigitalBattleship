@@ -34,8 +34,8 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Get the stored array values for this board
-	 * @return
+	 * Get the stored array values for this board. We want a reference as we will be changing these values
+	 * @return - The values for a given board
 	 */
 	public int[][] getBoardValues(){
 		return this.board;

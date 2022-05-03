@@ -27,7 +27,7 @@ public class BattleshipBoard extends Board{
 	private int totalShipCount;
 	
 	//Ship Array
-	ArrayList<Ship> ships;
+	private ArrayList<Ship> ships;
 	
 	/**
 	 * Setup the defaults for this board
@@ -35,9 +35,9 @@ public class BattleshipBoard extends Board{
 	public BattleshipBoard() {
 		
 		this.carrierLimit = 1;
-		this.battleshipLimit = 1;
-		this.destroyerLimit = 1;
-		this.submarineLimit = 1;
+		this.battleshipLimit = 0;
+		this.destroyerLimit = 0;
+		this.submarineLimit = 0;
 		this.totalShipLimit = this.carrierLimit + this.battleshipLimit + this.destroyerLimit + this.submarineLimit;
 		
 		this.carrierCount = 0;
@@ -130,16 +130,23 @@ public class BattleshipBoard extends Board{
 	}
 	
 	/**
+	 * Update the nested integer array. The strike board just needs to see if
+	 */
+	public void updateBoard(int[] strikeCoords) {
+		
+	}
+	
+	/**
 	 * Attempt to place a ship on the board
 	 * @param shipName - The type of ship attempting to be placed
 	 * @param orientation - The direction the ship will grow from the anchored point
 	 * @param startingCoord - The location at hich the ship is anchored
-	 * @return - Boolean as to whetehr the ship palcement was succesful or not
+	 * @return - Boolean as to whether the ship palcement was succesful or not
 	 */
 	public boolean placeShip(String shipName, String orientation, int[] startingCoord) {
-		System.out.printf("(%d,%d)", startingCoord[0], startingCoord[1]);
 		int[][] fullShipCoords = null; //This will house the full coordinate for our ship
 		int shipSize = 0;
+		
 		switch(shipName) {
 			case "Carrier":
 				//We need to do several checks before placement is allowed
@@ -293,7 +300,6 @@ public class BattleshipBoard extends Board{
 				}
 			}
 		}catch(Exception exception){
-			System.out.println("Error!");
 			//We went out of bounds
 			return false;
 		}

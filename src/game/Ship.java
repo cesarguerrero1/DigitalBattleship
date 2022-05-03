@@ -15,7 +15,10 @@ public class Ship {
 	private String shipName;
 	private int shipSize;
 	private boolean isFloating;
-	private HashMap<Boolean, Integer[]> shipParts; //This houses all the parts of the ship
+	
+	//Using a built-in ADT to house information about parts of the ship! Each part lives on its own coordinate and we need to know if that
+	//coordinate has been hit or not
+	private HashMap<Boolean, Integer[]> shipParts;
 	
 	/**
 	 * Constructor for our ship
@@ -36,6 +39,10 @@ public class Ship {
 		this.isFloating = true;
 	}
 	
+	/**
+	 * Return the size of the current ship
+	 * @return - The size of the ship
+	 */
 	public int getShipSize() {
 		return this.shipSize;
 	}
@@ -49,10 +56,30 @@ public class Ship {
 	}
 	
 	/**
-	 * Check to see if all of your ship parts have been struck
+	 * Check to see if a given strike has damange our ship
 	 * @return - Whether all parts have been struck
 	 */
-	public void handleStrike() {
+	public void checkShip(int[] strikeCoordinates) {
+		if(this.isFloating == false) {
+			return;
+		}
 		
+		//Check each part of the ships for these coordinates and if you are hit then reflect that.
+		
+		
+		//If all parts of the ship are hit then the boat is SUNK
+		
+		
+	}
+	
+	/**
+	 * NOTE: This is a very easy and simple way to override methods provided by Java. Method overriding is 
+	 * not special to pre-built Java Methods. You can absolutely override methods that you yourself have created.
+	 * 
+	 * This method override is used to help us display a tidbit about the ship itself
+	 */
+	@Override
+	public String toString(){
+		return this.shipName;
 	}
 }
