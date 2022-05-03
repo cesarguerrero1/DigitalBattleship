@@ -130,10 +130,16 @@ public class BattleshipBoard extends Board{
 	}
 	
 	/**
-	 * Update the nested integer array. The strike board just needs to see if
+	 * 
 	 */
-	public void updateBoard(int[] strikeCoords) {
-		
+	public int getFloatingShips() {
+		int count = 0;
+		for(Ship ship: this.ships) {
+			if(ship.isFloating() == true) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	/**
@@ -317,4 +323,23 @@ public class BattleshipBoard extends Board{
 			super.board[shipCoordinate[1]][shipCoordinate[0]] = 1;
 		}
 	}
+	
+	public void updateBoard(int[] strikeCoords, String typeOfHit) {
+		if(typeOfHit.equals("MISS")) {
+			this.board[strikeCoords[1]][strikeCoords[0]] = 2;
+		}else if(typeOfHit.equals("HIT")) {
+			this.board[strikeCoords[1]][strikeCoords[0]] = 3;
+		}
+	}
+	
+	/**
+	 * Iterate over the ships and find the one that was struck
+	 * @param strike - The location of the strike
+	 */
+	public void checkShips(int[] strike) {
+		for(Ship ship: this.ships) {
+			ship.resolveStrike(strike);
+		}
+	}
+	
 }

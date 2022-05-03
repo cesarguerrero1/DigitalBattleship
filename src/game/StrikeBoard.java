@@ -7,10 +7,11 @@ package game;
 
 public class StrikeBoard extends Board{
 
-	/**
-	 * Update the nested integer array. The strike board just needs to see if
-	 */
-	public void updateBoard(int[] strikeCoords) {
-		
+	public void updateBoard(int[] strikeCoords, String typeOfHit) {
+		if(typeOfHit.equals("HIT")) {
+			this.board[strikeCoords[1]][strikeCoords[0]] = 1;
+		}else if(typeOfHit.equals("MISS")) {
+			this.board[strikeCoords[1]][strikeCoords[0]] = 2;
+		}
 	}
 }

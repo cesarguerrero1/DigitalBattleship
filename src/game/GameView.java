@@ -165,15 +165,14 @@ public class GameView extends JFrame {
 		informationTextArea.setText("Battleship is a strategy type guessing game for two players. Each player has two boards. One board contains  the locations of the player's the fleet of ships and the other is used to keep track of strikes you have made against your opponent.\n\nThe objective of the game is to simply destroy the opposing player's fleet before they destroy yours. Players will alternate turns calling \"shots\" at the other player's ships, and after each attack, the boards of each player are updated to reflect the events of that turn. \n\nBefore play begins, each player secretly arranges their ships. Each ship occupies a number of consecutive squares on the grid, arranged either horizontally or vertically. The number of squares for each ship is outlined below. Note that the ships cannot overlap (i.e., only one ship can occupy any given square in the grid) and must be confined to the available space on your board. The types and numbers of ships allowed are the same for each player.\n\nIn this game you will have 4 ships:\n(1) Carrier - Occupies 5 Spaces\n(1) Battleship - Occupies 4 Spaces\n(1) Destroyer - Occupies 4 Spaces\n(1) Submarine - Occupies 3 Spaces\n\nGood luck and have fun! ");
 		informationTextArea.setBackground(Color.BLACK);
 		informationTextArea.setForeground(Color.WHITE);
-		informationTextArea.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		informationTextArea.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		informationTextArea.setBorder(null);
-		informationTextArea.setWrapStyleWord(true);
 		informationTextArea.setLineWrap(true);
 		informationTextArea.setEditable(false);
 		informationTextArea.setAutoscrolls(false);
 		GridBagConstraints gbc_informationTextArea = new GridBagConstraints();
-		gbc_informationTextArea.insets = new Insets(0, 0, 0, 5);
 		gbc_informationTextArea.fill = GridBagConstraints.BOTH;
+		gbc_informationTextArea.insets = new Insets(0, 0, 0, 5);
 		gbc_informationTextArea.gridx = 1;
 		gbc_informationTextArea.gridy = 0;
 		instructionsPanel.add(informationTextArea, gbc_informationTextArea);
@@ -661,7 +660,7 @@ public class GameView extends JFrame {
 	 */
 	public void createGUI() {
 		this.setTitle("Digital Battleship");
-		this.setSize(650, 650);
+		this.setSize(800, 750);
 		this.setVisible(true);
 	}
 	

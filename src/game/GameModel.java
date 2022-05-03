@@ -105,17 +105,35 @@ public class GameModel {
 	 * @return - The player who launched the attack
 	 */
 	public Player handleMove(int[] strikeCoordinates) {
-		//We need to hold the player who called this method as we will be switching at the end
+		//We need to hold the player who called this method as we will possibly be switching at the end
 		Player currentPlayer = this.getPlayerToMove();
-		
-		//Launch the strike and check to see if it was valid so we can react accordingly
-		
-		//Update who is next
-		if(this.playerToMove == player1) {
+		int result;
+		if(currentPlayer == player1) {
+			result = this.player1.attack(strikeCoordinates, this.player2);
+			if(result == 0) {
+				//Dont change to the next player!
+				return currentPlayer;
+			}
 			this.playerToMove = player2;
+			if(result == 1) {
+				//We need to update the ship that was struck
+				this.player2.getLocationBoard().checkShips(strikeCoordinates);
+			}
 		}else{
+			result = this.player2.attack(strikeCoordinates, this.player1);
+			if(result == 0) {
+				//Dont change to the next player!
+				return currentPlayer;
+			}
 			this.playerToMove = player1;
+			if(result == 1) {
+				//We need to update the ship that was struck
+				this.player1.getLocationBoard().checkShips(strikeCoordinates);
+			}
 		}
+	
+		//Check on whether the game is over
+		this.gameOver = this.checkGameOver();
 		
 		return currentPlayer;
 		
@@ -166,7 +184,19 @@ public class GameModel {
 	/**
 	 * Check if either player has no more active ships. If that is the case then the game is over
 	 */
-	public void checkGameOver() {
+	public boolean checkGameOver() {
+		if(this.player1.getLocationBoard().getFloatingShips() == 0) {
+			this.winner = this.player2;
+			return true;
+		}
+		
+		if(this.player2.getLocationBoard().getFloatingShips() == 0) {
+			this.winner = this.player1;
+			return true;
+		}
+		
+		//Otherwise flase
+		return false;
 		
 	}
 	

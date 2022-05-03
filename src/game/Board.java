@@ -41,4 +41,12 @@ public abstract class Board {
 		return this.board;
 	}
 	
+	
+	/**
+	 * Given a strike, update the board accordingly
+	 * @param strikeCoords - The location we want to update our board
+	 * @param typeOfHit - The type of hit so that we can update appropriately
+	 */
+	public abstract void updateBoard(int[] strikeCoords, String typeOfHit);
+	
 }

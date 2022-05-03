@@ -83,11 +83,9 @@ public class GameController implements ActionListener, MouseListener{
 	/**
 	 * This method allows us to display the winner and their stats
 	 */
-	/*
 	private void gameOver() {
-		
+		this.gameView.advanceCard();
 	}
-	*/
 
 	/**
 	 * We need to handle what happens when a button is clicked
@@ -122,7 +120,7 @@ public class GameController implements ActionListener, MouseListener{
 				break;
 			case "BEGIN":
 				Player player = this.gameModel.getPlayerToMove();
-				this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), "Click one of the squares empty squares above to launch an attack!");
+				this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), player.getName() + " click one of the squares empty squares above to launch an attack!");
 				this.gameView.refreshShipBoard(player, player.getLocationBoard().getBoardValues());
 				break;
 				
@@ -159,9 +157,21 @@ public class GameController implements ActionListener, MouseListener{
 		}
 		
 		if(table.getName().equals("Game Table")){
-			player = this.gameModel.getPlayerToMove();
-			this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), "Click one of the squares empty squares above to launch an attack!");
+			player = this.gameModel.handleMove(this.gameView.getStrikeCoordinates());
+			this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), player.getName() + " click one of the squares empty squares above to launch an attack!");
 			this.gameView.refreshShipBoard(player, player.getLocationBoard().getBoardValues());
+			
+			//Check if the game is over before we continue
+			if(this.gameModel.isGameOver() == true) {
+				this.gameOver();
+				return;
+			}
+			
+			player = this.gameModel.getPlayerToMove();
+			this.gameView.refreshStrikeBoard(player, player.getStrikeBoard().getBoardValues(), player.getName() + " click one of the squares empty squares above to launch an attack!");
+			this.gameView.refreshShipBoard(player, player.getLocationBoard().getBoardValues());
+			
+
 			/*
 			//The player click on a cell so we now need to handle that information
 			player = this.gameModel.handleMove(this.gameView.getStrikeCoordinates());
